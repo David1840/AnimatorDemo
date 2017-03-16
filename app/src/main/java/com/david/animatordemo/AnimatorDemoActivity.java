@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +33,8 @@ public class AnimatorDemoActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animator);
         rl = (RelativeLayout) findViewById(R.id.rlativeLayout);
+        im = (ImageView) findViewById(R.id.imageView_red);
+        //找到每张图片，添加事件监听，并将ImageView对象存入一个List中
         for (int i = 0; i < ImageRes.length; i++) {
             ImageView imageView = (ImageView) findViewById(ImageRes[i]);
             imageView.setOnClickListener(this);
@@ -75,29 +76,30 @@ public class AnimatorDemoActivity extends Activity implements View.OnClickListen
     }
 
     private void startAnimator() {
+        //确定启始的位置，Y轴是界面的高度
         int height = rl.getHeight();
-        Toast.makeText(this, "height: " + height, Toast.LENGTH_SHORT).show();
         for (int i = 1; i < ImageRes.length; i++) {
+            //分别对每个ImageView对象添加动画，在Y轴上向上移动 i*150，让每个图标之间相差150
             ObjectAnimator animator = ObjectAnimator.ofFloat(ImageViewList.get(i), "translationY", height, -i * 150);
             animator.setDuration(1000);
             animator.addListener(new AnimatorListenerAdapter() {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    im = (ImageView) findViewById(R.id.imageView_red);
+//                    super.onAnimationEnd(animation);
+                    //动画结束后可点击
                     im.setClickable(true);
 
                 }
 
                 @Override
                 public void onAnimationStart(Animator animation) {
-                    super.onAnimationStart(animation);
-                    im = (ImageView) findViewById(R.id.imageView_red);
+//                    super.onAnimationStart(animation);
+                    //动画开始后不可点击
                     im.setClickable(false);
                 }
             });
-            //差值器
+            //差值器，使用不同的差值器作出不同的效果
             animator.setInterpolator(new AccelerateDecelerateInterpolator());
             animator.setStartDelay(i * 300);
             animator.start();
@@ -106,7 +108,6 @@ public class AnimatorDemoActivity extends Activity implements View.OnClickListen
 
     private void closeAnimator() {
         int height = rl.getHeight();
-        Toast.makeText(this, "height: " + height, Toast.LENGTH_SHORT).show();
         for (int i = ImageRes.length - 1; i > 0; i--) {
             ObjectAnimator animator = ObjectAnimator.ofFloat(ImageViewList.get(i), "translationY", -i * 150, height);
             animator.setDuration(500);

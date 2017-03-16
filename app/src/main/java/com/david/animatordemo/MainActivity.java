@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
         mImageView = (ImageView) findViewById(R.id.imageView);
     }
 
+    public void Click(View view) {
+        Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
+    }
+
     public void btnMove(View view) {
 //        旧版动画实现方法,只是不断调onDraw方法重绘，事件监听等还是在原地
 //        TranslateAnimation animation = new TranslateAnimation(0, 200, 0, 0);
@@ -49,36 +53,37 @@ public class MainActivity extends AppCompatActivity {
         set.play(o2).after(o1);
         //可以根据需求选择回调函数
         o2.addListener(new AnimatorListenerAdapter() {
-
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 Toast.makeText(MainActivity.this, "onAnimationEnd", Toast.LENGTH_SHORT).show();
-
             }
         });
+        o1.addListener(new AnimatorListenerAdapter() {
+        });
+
         //添加动画监听
-//        o2.addListener(new Animator.AnimatorListener() {
-//            @Override
-//            public void onAnimationStart(Animator animation) {
-//
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animator animation) {
-//                Toast.makeText(MainActivity.this, "onAnimationEnd", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onAnimationCancel(Animator animation) {
-//
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animator animation) {
-//                Toast.makeText(MainActivity.this, "onAnimationRepeat", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        o2.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Toast.makeText(MainActivity.this, "onAnimationEnd", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                Toast.makeText(MainActivity.this, "onAnimationRepeat", Toast.LENGTH_SHORT).show();
+            }
+        });
 //        set.playTogether(o1, o2, o3);
         set.setDuration(1000);
         set.start();

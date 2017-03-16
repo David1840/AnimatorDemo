@@ -17,6 +17,7 @@
         app:srcCompat="@mipmap/ic_launcher"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:onClick="Click"
         android:id="@+id/imageView" />
 
     <Button
