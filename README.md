@@ -185,7 +185,7 @@ private void startAnimator() {
 ```
 
 <br/>　　结束的动画和startAnimator()基本相同，方向相反就可以了。
-##ValueAnimator
+## ValueAnimator
 
 <br/>　　数值发生器，可以实现很多很灵活的动画效果。动画效果都是通过ValueAnimator计算得出来的。ObjectAnimator就继承与ValueAnimator。
 <br/>　　下面代码实现了点击按钮，按钮上会在10秒的时间里从0显示到100，由于使用差值器，在动画过程中数字变化前后慢，中间快
