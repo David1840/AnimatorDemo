@@ -128,7 +128,7 @@
 
 <br/>　　我只想要动画结束的监听就可以像上面一样,更简洁方便。
 
-# 卫星菜单Demo
+## 卫星菜单Demo
 
 <br/>　　效果图
 <br/>　　![](https://www.davidprogram.com/wp-content/uploads/2017/03/mydemogif.gif)
@@ -184,4 +184,28 @@ private void startAnimator() {
     }
 ```
 
-<br/>　　结束的动画和startAnimator()基本相同，方向相反就可以了。[代码地址](https://github.com/David1840/AnimatorDemo)
+<br/>　　结束的动画和startAnimator()基本相同，方向相反就可以了。
+##ValueAnimator
+
+<br/>　　数值发生器，可以实现很多很灵活的动画效果。动画效果都是通过ValueAnimator计算得出来的。ObjectAnimator就继承与ValueAnimator。
+<br/>　　下面代码实现了点击按钮，按钮上会在10秒的时间里从0显示到100，由于使用差值器，在动画过程中数字变化前后慢，中间快
+
+```
+public void Count(View view) {
+        final Button button = (Button) view;
+        ValueAnimator animator = ValueAnimator.ofInt(0, 100);
+        animator.setDuration(10000);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Integer val = (Integer) animation.getAnimatedValue();
+                button.setText("" + val);
+            }
+        });
+        animator.start();
+    }
+```
+<br/>　　我们可以通过类似的方式自己定义各种动画效果。
+
+<br/>　　[代码地址](https://github.com/David1840/AnimatorDemo)

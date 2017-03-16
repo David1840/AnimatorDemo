@@ -4,9 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,10 +21,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mImageView = (ImageView) findViewById(R.id.imageView);
+
     }
 
     public void Click(View view) {
         Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
+    }
+
+    public void Count(View view) {
+        final Button button = (Button) view;
+        ValueAnimator animator = ValueAnimator.ofInt(0, 100);
+        animator.setDuration(10000);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Integer val = (Integer) animation.getAnimatedValue();
+                button.setText("" + val);
+            }
+        });
+        animator.start();
     }
 
     public void btnMove(View view) {
